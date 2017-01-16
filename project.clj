@@ -7,6 +7,7 @@
                  [org.clojure/clojure "1.8.0"]
                  [org.apache.commons/commons-rdf-api "0.3.0-incubating"]
                  [edu.amherst.acdc/trellis-spi "0.1.0-SNAPSHOT"]]
+  :repositories {"sonartype snapshots" "https://oss.sonatype.org/content/repositories/snapshots"}
   :profiles {:test {:dependencies [
                  [org.apache.commons/commons-rdf-simple "0.3.0-incubating"]]}})
 
