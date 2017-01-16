@@ -6,5 +6,5 @@ A library for handling users and groups in a trellis repository
 
 You can build this code with Leiningen:
 
-    lein jar
+    lein do clean, test, jar
 
