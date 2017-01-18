@@ -1,5 +1,5 @@
 {
-    "admin" : ["acoburn"],
+    "admin" : ["bseeger"],
     "bseeger" : ["info:group/test1"],
     "acoburn" : ["info:group/test2", "info:group/test1"]
 }

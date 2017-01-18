@@ -13,10 +13,10 @@
 ;; limitations under the License.
 
 (ns edu.amherst.acdc.trellis.agent.JsonAgent
-  (:import [java.util Arrays])
-  (:import [java.util.stream Stream])
-  (:import [java.util ServiceLoader])
-  (:import [org.apache.commons.rdf.api IRI RDF])
+  (:import [java.util ArrayList]
+           [java.util.stream Stream]
+           [java.util ServiceLoader]
+           [org.apache.commons.rdf.api RDF])
   (:require [clojure.string :as str]
             [cheshire.core :refer :all])
   (:gen-class
@@ -34,6 +34,9 @@
 (defn unprefix [prefix identifier]
   (str/replace-first (.getIRIString identifier) prefix ""))
 
+(defn toIRI [identifier]
+  (.createIRI (rdf) identifier))
+
 (defn -init
   ([file prefix] [[]
     (do
@@ -47,8 +50,9 @@
   (some? (some (partial = (unprefix (@(.state this) :prefix) identifier)) (get @data :admin))))
 
 (defn -getGroups [this identifier]
-  (let [prefix (@(.state this) :prefix)]
-    (if (str/starts-with? prefix (.getIRIString identifier))
-      (Arrays/stream (map (partial (.createIRI (rdf))) (get @data (keyword (unprefix prefix identifier)))))
+  (let [prefix (@(.state this) :prefix)
+        data (get @data (keyword (unprefix prefix identifier)))]
+    (if (and (str/starts-with? (.getIRIString identifier) prefix) (some? data))
+      (->> data (map toIRI) (ArrayList.) (.stream))
       (Stream/empty))))
 

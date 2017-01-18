@@ -13,9 +13,8 @@
 ;; limitations under the License.
 
 (ns edu.amherst.acdc.trellis.agent.JsonAgent-test
-  (:import (edu.amherst.acdc.trellis.agent JsonAgent))
-  (:import [org.apache.commons.rdf.api IRI RDF])
-  (:import [java.util ServiceLoader])
+  (:import [edu.amherst.acdc.trellis.agent JsonAgent]
+           [java.util.stream Collectors])
   (:require [clojure.test :refer :all]
             [clojure.java.io :as io]
             [cheshire.core :refer :all]
@@ -23,7 +22,16 @@
 
 (deftest agent-test
   (testing "Test agent service"
-    (let [service (JsonAgent. "build/resources/test/test.json" "info:user/")]
-      (is (= (.asAgent service "acoburn") (.createIRI (rdf) "info:user/acoburn")))
-      (is (= false (.isAdmin service (.asAgent service "bseeger"))))
-      (is (= (.isAdmin service (.asAgent service "acoburn")))))))
+    (let [service (JsonAgent. "build/resources/test/test.json" "info:user/")
+          acoburn (toIRI "info:user/acoburn")
+          bseeger (toIRI "info:user/bseeger")
+          group1 (toIRI "info:group/test1")
+          foo (toIRI "info:user/foo")]
+      (is (= (.asAgent service "acoburn") acoburn))
+      (is (= false (.isAdmin service acoburn)))
+      (is (.isAdmin service bseeger))
+      (is (= 2 (.count (.getGroups service acoburn))))
+      (is (= 1 (.count (.getGroups service bseeger))))
+      (is (= 0 (.count (.getGroups service foo))))
+      (is (.contains (.collect (.getGroups service acoburn) (Collectors/toSet)) group1)))))
+
