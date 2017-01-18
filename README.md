@@ -4,7 +4,7 @@ A library for handling users and groups in a trellis repository
 
 # Building
 
-You can build this code with Leiningen:
+You can build this code with Gradle:
 
-    lein do clean, test, jar
+    ./gradlew install
 

@@ -13,10 +13,12 @@
 ;; limitations under the License.
 
 (ns edu.amherst.acdc.trellis.agent.JsonAgent
+  (:import [java.util Arrays])
   (:import [java.util.stream Stream])
   (:import [java.util ServiceLoader])
   (:import [org.apache.commons.rdf.api IRI RDF])
-  (:require [cheshire.core :refer :all])
+  (:require [clojure.string :as str]
+            [cheshire.core :refer :all])
   (:gen-class
     :init init
     :state state
@@ -26,20 +28,27 @@
 
 (def data (ref {}))
 
-(defn createIRI [prefix username]
-  (.createIRI (first (ServiceLoader/load RDF)) (str prefix username)))
+(defn rdf []
+  (first (ServiceLoader/load RDF)))
+
+(defn unprefix [prefix identifier]
+  (str/replace-first (.getIRIString identifier) prefix ""))
 
 (defn -init
   ([file prefix] [[]
-    (dosync
-      (ref-set data (parse-string (slurp file))))
-    (ref {:prefix prefix})]))
+    (do
+      (dosync (ref-set data (parse-string (slurp file) true)))
+      (ref {:prefix prefix}))]))
 
 (defn -asAgent [this username]
-  (createIRI (str (@(.state this) :prefix) username)))
+  (.createIRI (rdf) (str (@(.state this) :prefix) username)))
 
 (defn -isAdmin [this identifier]
-  (some (partial = (.getIRIString identifier)) (get @data :admin)))
+  (some? (some (partial = (unprefix (@(.state this) :prefix) identifier)) (get @data :admin))))
 
-(defn -getGroups [this identifier] (Stream/empty))
+(defn -getGroups [this identifier]
+  (let [prefix (@(.state this) :prefix)]
+    (if (str/starts-with? prefix (.getIRIString identifier))
+      (Arrays/stream (map (partial (.createIRI (rdf))) (get @data (keyword (unprefix prefix identifier)))))
+      (Stream/empty))))
 
