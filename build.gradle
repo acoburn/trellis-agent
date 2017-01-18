@@ -43,6 +43,10 @@ ext {
 
     /* Testing */
     logbackVersion = '1.1.7'
+
+    /* OSGi */
+    spiflyVersion = '1.0.8'
+    projectOsgiVersion = project.version.replaceAll("-SNAPSHOT", ".SNAPSHOT")
 }
 
 configurations {
@@ -83,6 +87,23 @@ gradle.projectsEvaluated {
 release {
     tagTemplate = '$name-$version'
 }
+
+jar {
+    manifest {
+        description project.description
+        docURL project.docURL
+        vendor project.vendor
+        license project.license
+
+        instruction 'Import-Package', '*'
+        instruction 'Export-Package', "edu.amherst.acdc.trellis.agent;version=${projectOsgiVersion}"
+        instruction 'Require-Capability', '''
+            osgi.extender; filter:="(&(osgi.extender=osgi.serviceloader.registrar)(osgi.extender=osgi.serviceloader.processor))",
+            osgi.serviceloader; filter:="(osgi.serviceloader=org.apache.commons.rdf.api.RDF)";cardinality:=at_least_one'''
+    }
+}
+
+
 
 task sourceJar(type: Jar) {
     classifier 'sources'
