@@ -28,14 +28,13 @@
 
 (def data (ref {}))
 
-(defn rdf []
-  (first (ServiceLoader/load RDF)))
+(def rdf (first (ServiceLoader/load RDF)))
 
 (defn unprefix [prefix identifier]
   (str/replace-first (.getIRIString identifier) prefix ""))
 
 (defn toIRI [identifier]
-  (.createIRI (rdf) identifier))
+  (.createIRI rdf identifier))
 
 (defn -init
   ([file prefix] [[]
@@ -44,7 +43,7 @@
       (ref {:prefix prefix}))]))
 
 (defn -asAgent [this username]
-  (.createIRI (rdf) (str (@(.state this) :prefix) username)))
+  (.createIRI rdf (str (@(.state this) :prefix) username)))
 
 (defn -isAdmin [this identifier]
   (some? (some (partial = (unprefix (@(.state this) :prefix) identifier)) (get @data :admin))))
