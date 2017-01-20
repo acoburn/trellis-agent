@@ -39,7 +39,8 @@
 (defn -init
   ([file prefix] [[]
     (do
-      (dosync (ref-set data (parse-string (slurp file) true)))
+      (dosync
+        (ref-set data (parse-string (slurp file) true)))
       (ref {:prefix prefix}))]))
 
 (defn -asAgent [this username]
