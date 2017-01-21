@@ -36,12 +36,16 @@
 (defn toIRI [identifier]
   (.createIRI rdf identifier))
 
-(defn -init
-  ([file prefix] [[]
-    (do
+(defn read! [file]
+  (io!
+    (parse-string (slurp file) true)))
+
+(defn -init [file prefix]
+  [[]
+    (let [json (read! file)]
       (dosync
-        (ref-set data (parse-string (slurp file) true)))
-      (ref {:prefix prefix}))]))
+        (ref-set data json))
+      (ref {:prefix prefix}))])
 
 (defn -asAgent [this username]
   (.createIRI rdf (str (@(.state this) :prefix) username)))
