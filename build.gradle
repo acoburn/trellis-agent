@@ -233,6 +233,16 @@ checkstyle {
     configProperties.checkstyleConfigDir = rootProject.file('build/checkstyle/')
 }
 
+sonarqube {
+    properties {
+        property "sonar.projectName", "Trellis Repository Agent Service"
+        property "sonar.projectKey", "edu.amherst.acdc:trellis-agent"
+        property "sonar.links.homepage", "https://github.com/trellis-ldp/trellis"
+        property "sonar.links.issue", "https://github.com/trellis-ldp/trellis-agent/issues"
+        property "sonar.links.scm_dev", "scm:git:git@github.com:trellis-ldp/trellis-agent.git"
+    }
+}
+
 task docs(type: Javadoc) {
     source sourceSets.main.allJava
     classpath = files(sourceSets.main.compileClasspath)
