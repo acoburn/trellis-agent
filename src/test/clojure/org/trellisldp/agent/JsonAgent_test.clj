@@ -1,5 +1,3 @@
-;; Copyright Amherst College
-;;
 ;; Licensed under the Apache License, Version 2.0 (the "License");
 ;; you may not use this file except in compliance with the License.
 ;; You may obtain a copy of the License at
@@ -12,13 +10,13 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(ns edu.amherst.acdc.trellis.agent.JsonAgent-test
-  (:import [edu.amherst.acdc.trellis.agent JsonAgent]
+(ns org.trellisldp.agent.JsonAgent-test
+  (:import [org.trellisldp.agent JsonAgent]
            [java.util.stream Collectors])
   (:require [clojure.test :refer :all]
             [clojure.java.io :as io]
             [cheshire.core :refer :all]
-            [edu.amherst.acdc.trellis.agent.JsonAgent :refer :all]))
+            [org.trellisldp.agent.JsonAgent :refer :all]))
 
 (deftest agent-test
   (testing "Test agent service"

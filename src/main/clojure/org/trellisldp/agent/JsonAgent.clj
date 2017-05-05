@@ -1,5 +1,3 @@
-;; Copyright Amherst College
-;;
 ;; Licensed under the Apache License, Version 2.0 (the "License");
 ;; you may not use this file except in compliance with the License.
 ;; You may obtain a copy of the License at
@@ -12,7 +10,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(ns edu.amherst.acdc.trellis.agent.JsonAgent
+(ns org.trellisldp.agent.JsonAgent
   (:import [java.util ArrayList]
            [java.util.stream Stream]
            [java.util ServiceLoader]
@@ -22,9 +20,9 @@
   (:gen-class
     :init init
     :state state
-    :name edu.amherst.acdc.trellis.agent.JsonAgent
+    :name org.trellisldp.agent.JsonAgent
     :constructors {[String String] []}
-    :implements [edu.amherst.acdc.trellis.spi.AgentService]))
+    :implements [org.trellisldp.spi.AgentService]))
 
 (def data (ref {}))
 
