@@ -1,6 +1,7 @@
 # trellis-agent
 
 [![Build Status](https://travis-ci.org/trellis-ldp/trellis-agent.png?branch=master)](https://travis-ci.org/trellis-ldp/trellis-agent)
+[![Build status](https://ci.appveyor.com/api/projects/status/u9xf71t8lbsp8f2o?svg=true)](https://ci.appveyor.com/project/acoburn/trellis-agent)
 
 A library for handling users and groups in a trellis repository
 
