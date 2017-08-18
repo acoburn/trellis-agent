@@ -1,9 +1,9 @@
 plugins {
     id 'com.github.hierynomus.license' version '0.13.1'
     id 'com.github.ben-manes.versions' version '0.15.0'
-    id 'net.researchgate.release' version '2.4.0'
-    id 'org.sonarqube' version '2.2.1'
-    id "nebula.clojure" version '4.0.2'
+    id 'net.researchgate.release' version '2.6.0'
+    id 'org.sonarqube' version '2.5'
+    id "nebula.clojure" version '4.3.0'
 }
 
 apply plugin: 'maven'
@@ -38,12 +38,12 @@ ext {
     trellisSpiVersion = '0.1.0-SNAPSHOT'
     clojureVersion = '1.8.0'
     clojureJsonVersion = '0.2.6'
-    clojureLoggingVersion = '0.3.1'
+    clojureLoggingVersion = '0.4.0'
     slf4jVersion = '1.7.21'
     cheshireVersion = '5.7.0'
 
     /* Testing */
-    logbackVersion = '1.1.7'
+    logbackVersion = '1.2.3'
 
     /* OSGi */
     projectOsgiVersion = project.version.replaceAll("-SNAPSHOT", ".SNAPSHOT")
