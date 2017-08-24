@@ -30,6 +30,5 @@
       (is (.isAdmin service bseeger))
       (is (= 2 (.count (.getGroups service acoburn))))
       (is (= 1 (.count (.getGroups service bseeger))))
-      (is (= 0 (.count (.getGroups service foo))))
       (is (.contains (.collect (.getGroups service acoburn) (Collectors/toSet)) group1)))))
 
