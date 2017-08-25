@@ -22,6 +22,7 @@ group = 'org.trellisldp'
 description = 'Trellis Agent Service'
 
 ext {
+    moduleName = "org.trellisldp.agent"
     vendor = 'Trellis LDP'
     homepage = 'http://www.trellisldp.org'
     docURL = 'http://www.trellisldp.org/apidocs'
@@ -65,7 +66,7 @@ dependencies {
     testCompile group: 'org.apache.commons', name: 'commons-rdf-simple', version: commonsRdfVersion
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
 
-    buildToolsConfig 'org.trellisldp:trellis-build-tools:0.1.1'
+    buildToolsConfig 'org.trellisldp:trellis-build-tools:0.2.0'
 }
 
 repositories {
@@ -95,9 +96,9 @@ jar {
         vendor project.vendor
         license project.license
 
-        instruction 'Automatic-Module-Name', 'org.trellisldp.agent'
+        instruction 'Automatic-Module-Name', moduleName
         instruction 'Import-Package', '*'
-        instruction 'Export-Package', "org.trellisldp.agent;version=${projectOsgiVersion}"
+        instruction 'Export-Package', "${moduleName};version=${projectOsgiVersion}"
         instruction 'Require-Capability', '''
             osgi.extender; filter:="(&(osgi.extender=osgi.serviceloader.registrar)(osgi.extender=osgi.serviceloader.processor))",
             osgi.serviceloader; filter:="(osgi.serviceloader=org.apache.commons.rdf.api.RDF)";cardinality:=at_least_one'''
@@ -220,6 +221,7 @@ task processBuildTools(type: Copy) {
 checkstyle {
     configFile = rootProject.file('build/checkstyle/checkstyle.xml')
     configProperties.checkstyleConfigDir = rootProject.file('build/checkstyle/')
+    toolVersion = "8.1"
 }
 
 sonarqube {
