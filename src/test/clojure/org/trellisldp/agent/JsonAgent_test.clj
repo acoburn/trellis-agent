@@ -11,8 +11,7 @@
 ;; limitations under the License.
 
 (ns org.trellisldp.agent.JsonAgent-test
-  (:import [org.trellisldp.agent JsonAgent]
-           [java.util.stream Collectors])
+  (:import [org.trellisldp.agent JsonAgent])
   (:require [clojure.test :refer :all]
             [clojure.java.io :as io]
             [cheshire.core :refer :all]
@@ -27,8 +26,5 @@
           foo (toIRI "info:user/foo")]
       (is (= (.asAgent service "acoburn") acoburn))
       (is (= false (.isAdmin service acoburn)))
-      (is (.isAdmin service bseeger))
-      (is (= 2 (.count (.getGroups service acoburn))))
-      (is (= 1 (.count (.getGroups service bseeger))))
-      (is (.contains (.collect (.getGroups service acoburn) (Collectors/toSet)) group1)))))
+      (is (.isAdmin service bseeger)))))
 

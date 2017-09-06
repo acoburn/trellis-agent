@@ -12,7 +12,6 @@
 
 (ns org.trellisldp.agent.JsonAgent
   (:import [java.util ArrayList]
-           [java.util.stream Stream]
            [java.util ServiceLoader]
            [org.apache.commons.rdf.api RDF])
   (:require [clojure.string :as str]
@@ -50,11 +49,4 @@
 
 (defn -isAdmin [this identifier]
   (some? (some (partial = (unprefix (@(.state this) :prefix) identifier)) (get @data :admin))))
-
-(defn -getGroups [this identifier]
-  (let [prefix (@(.state this) :prefix)
-        data (get @data (keyword (unprefix prefix identifier)))]
-    (if (and (str/starts-with? (.getIRIString identifier) prefix) (some? data))
-      (->> data (map toIRI) (ArrayList.) (.stream))
-      (Stream/empty))))
 
