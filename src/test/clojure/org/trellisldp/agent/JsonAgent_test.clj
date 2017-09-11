@@ -14,17 +14,14 @@
   (:import [org.trellisldp.agent JsonAgent])
   (:require [clojure.test :refer :all]
             [clojure.java.io :as io]
-            [cheshire.core :refer :all]
             [org.trellisldp.agent.JsonAgent :refer :all]))
 
 (deftest agent-test
   (testing "Test agent service"
-    (let [service (JsonAgent. "build/resources/test/test.json" "info:user/")
+    (let [service (JsonAgent. "info:user/")
           acoburn (toIRI "info:user/acoburn")
           bseeger (toIRI "info:user/bseeger")
           group1 (toIRI "info:group/test1")
           foo (toIRI "info:user/foo")]
-      (is (= (.asAgent service "acoburn") acoburn))
-      (is (= false (.isAdmin service acoburn)))
-      (is (.isAdmin service bseeger)))))
+      (is (= (.asAgent service "acoburn") acoburn)))))
 
