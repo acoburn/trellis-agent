@@ -41,7 +41,6 @@ ext {
     clojureJsonVersion = '0.2.6'
     clojureLoggingVersion = '0.4.0'
     slf4jVersion = '1.7.21'
-    cheshireVersion = '5.7.0'
 
     /* Testing */
     logbackVersion = '1.2.3'
@@ -61,7 +60,6 @@ dependencies {
     compile group: 'org.clojure', name: 'clojure', version: clojureVersion
     compile group: 'org.clojure', name: 'tools.logging', version: clojureLoggingVersion
     compile group: 'org.clojure', name: 'data.json', version: clojureJsonVersion
-    compile group: 'cheshire', name: 'cheshire', version: cheshireVersion
 
     testCompile group: 'org.apache.commons', name: 'commons-rdf-simple', version: commonsRdfVersion
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
