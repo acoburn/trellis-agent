@@ -156,6 +156,7 @@ uploadArchives {
             url 'http://www.trellisldp.org'
             inceptionYear '2017'
             name 'Trellis Agent Service'
+            description 'An agent service implementation for Trellis'
 
             organization {
                 name project.vendor
