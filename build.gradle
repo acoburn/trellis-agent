@@ -2,13 +2,13 @@ plugins {
     id 'com.github.hierynomus.license' version '0.13.1'
     id 'com.github.ben-manes.versions' version '0.15.0'
     id 'net.researchgate.release' version '2.6.0'
+    id 'com.github.kt3k.coveralls' version '2.8.1'
     id 'org.sonarqube' version '2.5'
-    id "nebula.clojure" version '4.3.0'
 }
 
 apply plugin: 'maven'
 apply plugin: 'osgi'
-apply plugin: 'nebula.clojure'
+apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: 'checkstyle'
@@ -28,22 +28,16 @@ ext {
     docURL = 'http://www.trellisldp.org/apidocs'
     license = 'Apache 2'
 
-    clojure {
-        aotCompile = true
-        warnOnReflection = false
-    }
-
     /* Dependencies */
     commonsRdfVersion = '0.3.0-incubating'
     trellisApiVersion = '0.1.0'
     trellisSpiVersion = '0.1.0'
-    clojureVersion = '1.8.0'
-    clojureJsonVersion = '0.2.6'
-    clojureLoggingVersion = '0.4.0'
     slf4jVersion = '1.7.21'
 
     /* Testing */
+    junitVersion = '4.12'
     logbackVersion = '1.2.3'
+    jacocoVersion = '0.7.9'
 
     /* OSGi */
     projectOsgiVersion = project.version.replaceAll("-SNAPSHOT", ".SNAPSHOT")
@@ -54,15 +48,13 @@ configurations {
 }
 
 dependencies {
-    compile group: 'org.trellisldp', name: 'trellis-api', version: trellisApiVersion
-    compile group: 'org.trellisldp', name: 'trellis-spi', version: trellisSpiVersion
-    compile group: 'org.apache.commons', name: 'commons-rdf-api', version: commonsRdfVersion
-    compile group: 'org.clojure', name: 'clojure', version: clojureVersion
-    compile group: 'org.clojure', name: 'tools.logging', version: clojureLoggingVersion
-    compile group: 'org.clojure', name: 'data.json', version: clojureJsonVersion
+    api group: 'org.trellisldp', name: 'trellis-api', version: trellisApiVersion
+    api group: 'org.trellisldp', name: 'trellis-spi', version: trellisSpiVersion
+    api group: 'org.apache.commons', name: 'commons-rdf-api', version: commonsRdfVersion
 
-    testCompile group: 'org.apache.commons', name: 'commons-rdf-simple', version: commonsRdfVersion
-    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
+    testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
+    testImplementation group: 'junit', name: 'junit', version: junitVersion
+    testImplementation group: 'org.apache.commons', name: 'commons-rdf-simple', version: commonsRdfVersion
 
     buildToolsConfig 'org.trellisldp:trellis-build-tools:0.2.0'
 }
@@ -99,8 +91,6 @@ jar {
     }
 }
 
-
-
 task sourceJar(type: Jar) {
     classifier 'sources'
     from sourceSets.main.allSource
@@ -114,6 +104,10 @@ task javadocJar(type: Jar) {
 artifacts {
     archives javadocJar
     archives sourceJar
+}
+
+jacoco {
+    toolVersion = jacocoVersion
 }
 
 license {
@@ -229,9 +223,14 @@ sonarqube {
 }
 
 task docs(type: Javadoc) {
+    outputs.upToDateWhen { false }
     source sourceSets.main.allJava
     classpath = files(sourceSets.main.compileClasspath)
     destinationDir = new File(projectDir, "docs/${version}")
+    options {
+        links "http://docs.oracle.com/javase/8/docs/api/"
+        links "https://commons.apache.org/proper/commons-rdf/apidocs/"
+    }
 }
 
 checkstyleMain.dependsOn processBuildTools
