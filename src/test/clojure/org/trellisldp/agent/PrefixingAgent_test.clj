@@ -10,15 +10,15 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(ns org.trellisldp.agent.JsonAgent-test
-  (:import [org.trellisldp.agent JsonAgent])
+(ns org.trellisldp.agent.PrefixingAgent-test
+  (:import [org.trellisldp.agent PrefixingAgent])
   (:require [clojure.test :refer :all]
             [clojure.java.io :as io]
-            [org.trellisldp.agent.JsonAgent :refer :all]))
+            [org.trellisldp.agent.PrefixingAgent :refer :all]))
 
 (deftest agent-test
   (testing "Test agent service"
-    (let [service (JsonAgent. "info:user/")
+    (let [service (PrefixingAgent. "info:user/")
           acoburn (toIRI "info:user/acoburn")
           bseeger (toIRI "info:user/bseeger")
           group1 (toIRI "info:group/test1")

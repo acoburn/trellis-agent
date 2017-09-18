@@ -10,14 +10,14 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(ns org.trellisldp.agent.JsonAgent
+(ns org.trellisldp.agent.PrefixingAgent
   (:import [java.util ServiceLoader]
            [org.apache.commons.rdf.api RDF])
   (:require [clojure.string :as str])
   (:gen-class
     :init init
     :state state
-    :name org.trellisldp.agent.JsonAgent
+    :name org.trellisldp.agent.PrefixingAgent
     :constructors {[String] []}
     :implements [org.trellisldp.spi.AgentService]))
 
