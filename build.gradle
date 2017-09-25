@@ -30,8 +30,8 @@ ext {
 
     /* Dependencies */
     commonsRdfVersion = '0.3.0-incubating'
-    trellisApiVersion = '0.1.0'
-    trellisSpiVersion = '0.1.0'
+    trellisApiVersion = '0.1.1'
+    trellisSpiVersion = '0.1.1'
     slf4jVersion = '1.7.21'
 
     /* Testing */
