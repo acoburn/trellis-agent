@@ -16,7 +16,7 @@ package org.trellisldp.agent;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.trellisldp.spi.AgentService;
+import org.trellisldp.api.AgentService;
 
 /**
  * @author acoburn

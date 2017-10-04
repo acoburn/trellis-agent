@@ -13,12 +13,12 @@
  */
 package org.trellisldp.agent;
 
-import static org.trellisldp.spi.RDFUtils.getInstance;
+import static org.trellisldp.api.RDFUtils.getInstance;
 
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.api.RDF;
 
-import org.trellisldp.spi.AgentService;
+import org.trellisldp.api.AgentService;
 
 /**
  * @author acoburn
