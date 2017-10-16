@@ -13,14 +13,17 @@
  */
 package org.trellisldp.agent;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
 import org.trellisldp.api.AgentService;
 
 /**
  * @author acoburn
  */
+@RunWith(JUnitPlatform.class)
 public class PrefixingAgentTest {
 
     @Test
